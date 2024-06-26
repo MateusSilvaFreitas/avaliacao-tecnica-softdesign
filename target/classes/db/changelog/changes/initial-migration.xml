@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="1" author="Mateus Freitas">
+        <createTable tableName="associado">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cpf" type="VARCHAR(11)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Mateus Freitas">
+        <createTable tableName="pauta">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_maxima_votacao" type="DATETIME">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Mateus Freitas">
+        <createTable tableName="voto">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_pauta" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_associado" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voto" type="VARCHAR(3)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="fk_voto_pauta"
+                      baseTableName="voto"
+                      baseColumnNames="id_pauta"
+                      referencedTableName="pauta"
+                      referencedColumnNames="id"/>
+        <addForeignKeyConstraint constraintName="fk_voto_associado"
+                      baseTableName="voto"
+                      baseColumnNames="id_associado"
+                      referencedTableName="associado"
+                      referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

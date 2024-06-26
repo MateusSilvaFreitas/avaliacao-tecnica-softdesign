@@ -1,0 +1,20 @@
+create table Associado (
+	id int primary key auto_increment,
+	cpf varchar(11)not null
+);
+
+create table Pauta (
+	id int primary key auto_increment,
+	nome varchar(255) not null,
+	data_maxima_votacao datetime null
+)
+
+
+create table Voto (
+	id int primary key auto_increment,
+	id_pauta int,
+	id_associado int,
+	voto varchar(3),
+    FOREIGN KEY (id_pauta) REFERENCES Pauta(id),
+    FOREIGN KEY (id_associado) REFERENCES Associado(id)
+);
